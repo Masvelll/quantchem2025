@@ -11,6 +11,7 @@ graphics, geometry}
 \usepackage{bm}
 \usepackage{enumitem}
 \usepackage{pgfplots}
+% \usepackage[lite]{mtpro2}
 \pgfplotsset{compat=1.18}
 \numberwithin{equation}{section}  % Формулы нумеруются как (X.Y), где X — номер раздела
 
@@ -296,6 +297,35 @@ graphics, geometry}
 \begin{equation}
 \langle \psi_e | \hat{A} | \psi_e \rangle = \sum_{K, L} c_K^* c_L \langle \Phi_K | \hat{A} | \Phi_L \rangle,
 \end{equation}
-чего мы пока что делать не умеем. Напрямую считать это невозможно, поскольку, например, при \(N = 100\) (вообще говоря типичное значение для молекул), \(N! = \; ?\).
+чего мы пока что делать не умеем. Напрямую считать это невозможно, поскольку, например, при \(N = 100\) (вообще говоря типичное значение для молекул), и соответственно \(N!\) мы никак не посчитаем, поэтому нужно придумать определённые правила для расчёта данных матричных элементов.
 
+Для того, чтобы задать детерминант слейтера, нужно иметь одноэлектронные волновые функции. Чтобы ими воспользоваться рассмотрим следующую модель: рис. \ref{fig:spinorbitals}. Положим, что в нашей системе \(N\) электронов, \(M\) спин-орбиталей, и \(M \gg N\).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{./images/spin-orbitals.png}
+    \caption{Электронная конфигурация}
+    \label{fig:spinorbitals}
+\end{figure}
+
+Детерминант слейтера, соответстующий основной конфигурации можно записать слдеующим образом: 
+
+\begin{equation}
+\Phi_0 = const \sum_{K = \sigma(i_1, \dots i_N)} (-1)^{P(K)} \psi_{i_1}(1) \dots \psi_{i_N}(N)
+\end{equation}
+Потребуем следующее: \(\langle \Phi_0 | \Phi_0 \rangle = 1\)
+
+\begin{multline}
+1 = |const|^2 \left\langle \sum_{K = \sigma(i_1, \dots, i_N)} (-1)^{P(K)} \psi_{i_1} (1) \dots \psi_{i_N} (N) \middle| \sum_{L = \sigma(j_1, \dots, j_N)} (-1)^{P(L)} \psi_{j_1} (1) \dots \psi_{j_N} (N) \right\rangle =\\= 
+|const|^2 \sum_{K = \sigma(i_1, \dots, i_N)} (-1)^{P(K)} \sum_{L = \sigma(j_1, \dots, j_N)} (-1)^{P(L)} \underbrace{\langle \psi_{i_1} (1) \dots \psi_{i_N} (N) | \psi_{j_1} (1) \dots \psi_{j_N} (N) \rangle}_{\langle\psi_{i_1} (1) | \psi_{j_1} (1) \rangle \dots \langle \psi_{i_N(N)} | \psi_{j_N}(N) \rangle},
+\label{eq:phi00}
+\end{multline}
+где в последнем бракет мы разделили интеграл по отдельным переменным. Теперь давайте потребуем ортогональность спин-орбиталей \(\langle \psi_i | \psi_j \rangle = \delta_{ij}\) (однако существуют и случаи, когда некоторые обходятся и без этого предположения, что может быть, например, в системах нейтральной молекула + катион). Таким образом \eqref{eq:phi00} сводится к:
+\begin{multline}
+1 = |const|^2 \sum_{K = \sigma(i_1, \dots, i_N)} (-1)^{P(K)} \sum_{L = \sigma(j_1, \dots, j_N)} (-1)^{P(L)} \delta_{i_1 j_1} \dots \delta_{i_N j_N} =\\=
+|const|^2 \sum_{K = \sigma (i_1, \dots, i_N)} 1 = N! \; |const|^2 = 1,
+\end{multline}
+откуда получаем значение нормировочной константы: \(const = \dfrac{1}{\sqrt{N!}}\)
+
+Как теперь сгенерировать детерминанты помимо \(\Phi_0\)?
 \end{document}
