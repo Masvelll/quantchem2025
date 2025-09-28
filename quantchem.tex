@@ -136,7 +136,7 @@ graphics, geometry}
     \label{fig:retinalePES}
 \end{figure}
 
-\subsubsection*{Вывод приближения Борна-Оппенгеймера}
+\subsubsection*{Поправки в приближении Борна-Оппенгеймера}
 
 Волновую функцию всей системы можно представить\footnote{При каждом фиксированном \(\bm{R}\) функция \(\psi(\bm{R})\) раскладывается по ортонормированному базису собственных функций электронного гамильтониана (\ref{eq:H_e}): \(\langle \psi_i | \psi_j \rangle = \delta_{ij}\).} как 
 
@@ -218,6 +218,8 @@ graphics, geometry}
     \left[ \hat{T}_n + E_m (\bm{R}) \right] \chi_m = E \chi_m
 \end{equation}
 
+\textbf{Задача.} Оцените поправку \(B_{mn}\) в приближении Борна-Оппенгеймера.
+
 \subsection{Электронное уравнение Шрёдингера. Детерминанты слейтера}
 
 Напомним вид уравнения Шрёдингера для системы электронов:
@@ -235,31 +237,6 @@ graphics, geometry}
 Асимптотические свойства:
 
 
-% \begin{tikzpicture}
-% \begin{axis}[
-%     axis lines = middle,
-%     xlabel = $\bm{r_{12}}$,
-%     ylabel = $\psi$,
-%     xmin = 0, xmax = 1.5,
-%     ymin = 0, ymax = 2,
-%     % domain = 0:1.5,
-%     samples = 100,
-%     width = 6cm,
-%     height = 6cm,
-%     % hide obscured x ticks = true, 
-%     % hide obscured y ticks = true,
-%     xlabel style = {below=30pt},    % сдвигаем метку оси X вниз
-%     ylabel style = {left=20pt},     % сдвигаем метку оси Y влево
-%     % ticklabel style = {font=\small},
-%     line width = 1.5pt,
-%     every axis x label/.style={at={(ticklabel* cs:1.0)}, anchor=north, xshift=20pt},
-%     every axis y label/.style={at={(ticklabel* cs:1.0)}, anchor=east, yshift=15pt}
-    
-% ]
-% \addplot[black, thick] {1 + abs(x)/2 - (x-0.5)^2 + exp(-(x-1.5)^2) / 1.5};
-% \node[black, right] at (axis cs: 1.0, 1.5) {$\psi(r_{12})$};
-% \end{axis}
-% \end{tikzpicture}
 
 \item \(\psi(\bm{r} \rightarrow \infty) \sim e ^{-r}\)
 \item \(\psi(\bm{r} \rightarrow \bm{R}_\alpha) \sim e ^{- \alpha |r - R_\alpha|}\)
@@ -294,8 +271,31 @@ graphics, geometry}
 
 Переменная \(\alpha\) соответствует состоянию спина вверх, а \(\beta\) — вниз. С помощью скобок \(\alpha(i)\) будем обозначать состояние спина \(i\)-го электрона. Например, \(\alpha(1)\) означает, что первый электрон имеет спин вверх. 
 
-Теперь, чтобы создать правильную многоэлектронную волновую функцию вместо \eqref{eq:psi_e_naive} антисимметризуем её (\(\psi_{antisym} = \psi(\bm{r}_1, \bm{r}_2) - \psi(\bm{r}_2, \bm{r}_1)\)) и добавим спин.
+Теперь, чтобы создать правильную многоэлектронную волновую функцию вместо \eqref{eq:psi_e_naive} антисимметризуем её (\(\psi_{antisym} = \psi(\bm{r}_1, \bm{r}_2) - \psi(\bm{r}_2, \bm{r}_1)\)) и добавим спин:
 
+\begin{multline}
+\psi_e = \psi_{1s} (\bm{r}_1) \psi_{1s} (\bm{r}_2) = \frac{1}{\sqrt{2}} \phi_{1s} (\bm{r_1}) \alpha(1) \phi_{1s} (\bm{r}_2) \beta(2) - \frac{1}{\sqrt{2}} \phi_{1s} (\bm{r_2}) \alpha(2) \phi_{1s} (\bm{r}_1) \beta(1) =\\=
+\begin{vmatrix}
+\phi_{1s} (\bm{r_1}) \alpha(1) & \phi_{1s} (\bm{r_2}) \alpha(2) \\
+\phi_{1s} (\bm{r_2}) \beta(1) & \phi_{1s} (\bm{r_1}) \beta(2)
+\end{vmatrix}
+\end{multline}
 
+В общем случае, вспомнив формулу для определителя, детерминант Слейтера можно записать так:
+
+\begin{equation}
+    \Phi_e = \dfrac{1}{\sqrt{N!}} \sum_{K = \sigma(k_1, \dots, k_N)} (-1)^p \psi_{k_1} (1) \dots \psi_{k_N} (N)
+\end{equation}
+
+Большинство задач требуют расчёта матричного элемента:
+\begin{equation}
+    \langle \psi_e | \hat{A} | \psi_e \rangle,
+\end{equation}
+где \(\hat{A}\) - произвольный оператор. Это приводит задачу к тому, что нужно считать матричные элементы по детерминантам Слейтера:
+
+\begin{equation}
+\langle \psi_e | \hat{A} | \psi_e \rangle = \sum_{K, L} c_K^* c_L \langle \Phi_K | \hat{A} | \Phi_L \rangle,
+\end{equation}
+чего мы пока что делать не умеем. Напрямую считать это невозможно, поскольку, например, при \(N = 100\) (вообще говоря типичное значение для молекул), \(N! = \; ?\).
 
 \end{document}
