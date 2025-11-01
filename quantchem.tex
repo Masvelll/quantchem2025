@@ -135,7 +135,7 @@ graphics, geometry}
 \begin{figure}[h] %{l}{0.6\textwidth}
     \centering
     \includegraphics[width=0.6\textwidth]{./images/retinalePES.png}
-    \caption{Поверхность потенциальной энергии ретиналя в двух наиболее распространённых моделях. \(0^{\circ}\) соответствует транс-конформации, \(180^{\circ}\) цис-конформации При поглощении фотона состояние системы переходит с ППЭ \(S_0\) на \(S_1\), где далее релаксирует до точки так называемого \textit{квазипересечения (avoided crossing)} или точки \textit{квазивырождения}, где учет неадиабатичности становится очень критичным, как читать может установить после прочтения данного параграфа.}
+    \caption{Поверхность потенциальной энергии ретиналя в двух наиболее распространённых моделях. \(0^{\circ}\) соответствует транс-конформации, \(180^{\circ}\) цис-конформации При поглощении фотона состояние системы переходит с ППЭ \(S_0\) на \(S_1\), где далее релаксирует до точки так называемого \textit{квазипересечения (avoided crossing)} или точки \textit{квазивырождения}, где учет неадиабатичности становится очень критичным, как читатель может установить после прочтения данного параграфа.}
     \label{fig:retinalePES}
 \end{figure}
 
@@ -462,7 +462,7 @@ graphics, geometry}
 \[\psi_e = \Phi_0,\]
 что по сути представляет собой метод Хартри-Фока, или же метод самосогласованного поля, откуда мы получаем набор \(\{\psi_p\}\)
 
-Если \(\psi_e = \varepsilon c_\mu \Phi_\mu + \cancel{\dots},\)
+Если \(\psi_e = \sum_\mu \varepsilon c_\mu \Phi_\mu + \cancel{\dots},\)
 то метод будет называться многоконфигурационным методом самосогласованного поля.}\footnote{Поправить, пропустил лекцию}
 
 Посчитаем \(\langle \psi_e | \hat{H}_e | \psi_e \rangle \approx \langle \Phi_0 | \hat{H}_e | \Phi_0 \rangle\). Как известно из квантовой механики, это даст оценку сверху на значение минимальной энергии в спектре. Далее воспользовавшись методом поиска основного состояния в классе пробных функций, мы сделаем более точную оценку, минимизировав данную энергию в зависимости от спин-орбиталей (вариационный принцип). Вспомнив одноэлектронную часть гамильтониана:
@@ -478,6 +478,174 @@ graphics, geometry}
 \begin{equation}
 E_e = \sum_{i=1}^N \langle \psi_i | h | \psi_i \rangle + \dfrac{1}{2} \sum_{i \neq j} \langle ij || ij \rangle .
 \end{equation}
-Далее нам нужно найти при каких \(\psi_i\) данный функционал \(E[\psi_i]\) достигает минимума при условии \(\langle \psi_i | \psi_j \rangle \)
+Далее нам нужно найти при каких \(\psi_i\) данный функционал \(E[\psi_i]\) достигает минимума при условии \(\langle \psi_i | \psi_j \rangle = \delta_{ij} \)
+
+В зависимости от задачи спин-орбитали можно параметризовать по-разному. В общем случае они имеют вид:
+
+\begin{equation}
+\psi(\bm{r}, \sigma) = R (r) Y_{lm} (\theta, \varphi) \eta (\sigma),
+\end{equation}
+где \(Y_{lm} (\theta, \varphi)\) - это угловая волновая функция, которая из-за симметрии гамильтониана может быть фиксирована, однако для большинства молекул переменные не разделяются и их нужно учитывать явно. В этом случае пространственная орбиталь зависит от всех координат:
+
+\begin{equation}
+    \psi(\bm{r}, \sigma) = \varphi(\bm{r}) \eta (\sigma)
+\end{equation}
+Как же получить эти орбитали? Как известно, существует теория молекулярных орбиталей, в которой из суперпозиции атомных орбиталей образуется молекулярная. Например пространственная орбиталь для молекулы водорода будет иметь два варианта: рис. \ref{fig:h2_orbitals}.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.25\textwidth]{images/orbitalsH.png}
+    \caption{Пространственная орбиталь атома водорода}
+    \label{fig:h2_orbitals}
+\end{wrapfigure}
+
+Если орбитали находятся в противофазе, то
+\[\varphi = \chi_1 - \chi_2,\]
+что будет образовывать связывающую орбиталь. В то же время, если они синфазны:
+\[\varphi = \chi_1 + \chi_2,\]
+в данном случае это антисвязывающая, или разрыхляющая орбиталь.
+
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.35\textwidth]{images/orbitals_many.png}
+    \caption{Схематичное представление пространственной орбитали в виде суперпозиции множества атомных орбиталей}
+    \label{fig:many_orbitals}
+\end{wrapfigure}
+
+
+
+Таким образом в общем случае мы можем каждому иону сопоставить атомную орбиталь \(\chi_\mu\) (АО) и представить общую пространственную орбиталь как суперпозицию данных АО:
+\begin{equation}
+    \phi_i(\bm{r}) = \sum_\mu c_{\mu_i} \chi_{\mu},
+\end{equation}
+где каждая АО \(\chi_\mu\) является функцией \(\psi_\mu^{\alpha} (\bm{r} - \bm{R}_\alpha) \) относительно центра иона \(R_\alpha\).
+
+Однако теперь появляется новый вопрос. Откуда мы возьмём уже атомные орбитали?
+
+Минимальным числом обойтись так просто не выйдет. Даже молекула по типу CO будет требовать наличие \(d\)-орбиталей в базисе, чтобы правильно описывать поляризацию орбиталей. Однако даже аналитически мы знаем только функции атома водорода. Тем не менее, как раз-таки с помощью них можно построить рабочий набор атомных орбиталей. Вспомним волновые функции водорода:
+
+\begin{equation}
+\psi_M^{H_{like}} = const \cdot e^{-Zr} P_{nl} (r) \cdot P_l^{(m)} (\cos \theta) e ^{i m \varphi},
+\end{equation}
+что по сути при выборе действительных волновых функций можно привести к виду: 
+\begin{equation}
+\chi_M = \sum_{nlm} A_{nlm} r^n cos^{l_x} \theta \, sin^{l_y} \phi \, cos^{l_z} \varphi \, e^{-Zr},    
+\end{equation}
+где \(l_x+l_y+l_z = n\). С точки зрения вычисления нам абсолютно не важно какие именно брать функции, если они образуют правильный базис. Поэтому можно в качестве атомных орбиталей взять
+\begin{equation}
+\chi_M = N x^{l_x} y^{l_y} z^{l_z} e^{-\alpha r},
+\end{equation}
+что называется \textit{орбиталями слейтерова типа}, или же \textit{slater-type orbitals (STO)}.
+
+Далее сделаем ещё одно упрощение, а именно перестанем заботиться об асимптотиках, и заменим \(e^{-\alpha r}\) на \(e ^{- \alpha r^2}\). Такие орбитали будут уже называться \textit{орбиталями гауссова типа (GTO)}. Такие орбитали очень удобны из-за следующего свойства: суперпозиция гауссианов есть гауссиан.
+
+
+
+\newpage
+
+
+\section{Уравнения Хартри-Фока}
+
+В предыдущем разделе мы выяснили, что пространственную волновую функцию можно представить в виде:
+
+\begin{equation}
+    \varphi_i (\bm{r}) = \sum_\mu c_{\mu_i} \chi_{M} (\bm{r}),
+\end{equation}
+где
+
+\begin{equation}
+    \chi_M(\bm{r}) = N (x - A_x)^{l_x} (y - A_y)^{l_y} (z - A_z) ^{l_z} e^{- \alpha (\bm{r} - \vec{A})}
+\end{equation}
+
+Вспомним наш хартри-фоковский функционал энергии:
+
+\begin{equation}
+E_{HF} = \sum_{i = 1}^{N} \langle i | h | i \rangle + \dfrac{1}{2} \sum_{i,j} \langle ij || ij \rangle
+\end{equation}
+Теперь \(| i \rangle = | \psi_i \rangle = \sum_\mu c_{\mu_i} | \chi_\mu \rangle \).
+
+Наша задача состоит в минимизации функционала \(E_{HF}\):
+\begin{equation}
+    E_{HF} \rightarrow min,
+\end{equation}
+при условии:
+\begin{equation}
+    \langle i | j \rangle = \delta_{ij}.
+\end{equation}
+
+Воспользуемся методом Лагранжа. Введём функционал:
+
+\begin{equation}
+\mathcal{L} [{\psi_i}] = E_{HF}[{\psi_i}] - \sum_{i, j} \lambda_{ij} (\langle \psi_i | \psi_j \rangle - \delta_{ij})
+\end{equation}
+При добавлении \(\delta \psi_i\) он представим в виде:
+
+\begin{equation}
+\mathcal{L} [\psi_i + \delta \psi_i] = \mathcal{L} [\psi_i] + \sum_i \dfrac{\delta \mathcal{L}}{\delta \psi_i} \delta \psi_i + \dots,
+\end{equation}
+где для условия экстремума необходимо потребовать \(\dfrac{\delta \mathcal{L}}{\delta \psi_i} = 0\).
+
+Рассмотрим как выглядит вариация для каждого матричного элемента в первом порядке в составе данного функционала:
+
+\begin{equation}
+\langle i + \delta i, j + \delta j || i+ \delta i, j + \delta j \rangle =
+\langle i j || i j \rangle + \langle \delta i, j || i j \rangle + \langle i, \delta j || i j \rangle + \langle ij || \delta i, j \rangle + \langle ij || i \delta, j \rangle 
+\label{eq:double_mat}
+\end{equation}
+
+Забудем про члены с вариацией справа {\color{red}{Почему?}}
+
+\[\langle \delta i, j || i j \rangle = \langle \delta i, j | i j \rangle - \langle \delta i, j | j i \rangle\]
+\[\langle i, \delta j || ij \rangle = \langle i, \delta j | ij \rangle - \langle i, \delta j | j i \rangle = \langle j, \delta i | j i \rangle - \langle j, \delta i | i j \rangle = \langle \delta i, j | i j \rangle - \langle \delta i, j | j i \rangle,\]
+В двух последних равенствах мы сначала поменяли метки электронов \(i <-> j\), а затем поменяли порядок интегрирования. Таким образом \eqref{eq:double_mat} переходит в:
+\[\langle \delta, j || i j \rangle + \langle i, \delta j || i j \rangle = 2 \langle \delta i, j || i j \rangle - 2  \langle \delta i, j | j i \rangle\]
+
+Линейные по вариации части одноэлектронных матричных элементов остаются простыми:
+
+\[\sum_i \langle \delta i | h | i \rangle + \sum_{ij} \lambda_{ij} \langle \delta i | j \rangle \]
+
+В итоге получаем, что первая производная по вариации:
+
+\begin{equation}
+\dfrac{\delta E}{\delta \psi} = \sum_{i=1}^{N} \langle \delta i | h | i \rangle + \sum_{ij}^{N} \langle \delta i, j | i j \rangle - \sum_{ij}^{N} \lambda_{ij} \langle \delta i | j \rangle  = 0
+\end{equation}
+\begin{equation}
+\sum_{i=1}^{N} \left[\langle \delta i | h | i \rangle + \sum_{j=1}^{N} \langle \delta i, j | i j \rangle - \langle \delta i, j | j i \rangle - \sum_{j=1}^{N} \lambda_{ij} \langle \delta i | j \rangle \right]
+\end{equation}
+
+Теперь распишем матричные элементы в виде интегралов:
+
+\begin{multline}
+    0 = \sum_{i} \int_{[1]} d1 \delta \psi_i^* (1) \Bigg[
+        \hat{h} \psi_i(1) + 
+        \underbrace{\sum_{j} \int_{[2]} d2 \psi_j ^* (2) \dfrac{1}{r_{12}} \psi_i (1) \psi_j (2)}_{\hat{{J}} \psi_i (1)}
+        -\\- 
+        \underbrace{\sum_j \int_{[2]} d2 \psi_j^* (2) \dfrac{1}{r_{12}} \psi_{j} (2) \psi_i (1)}_{{K} \psi_i (1)}
+        - \sum_j \lambda_{ij} \psi_j (1)\Bigg],
+\label{eq:hf_raw}
+\end{multline}
+где операторы \({J}\) называется \textit{кулоновским оператором}, а \({K}\) - \textit{обменным оператором}. При помощи них можно переписать \eqref{eq:hf_raw} следующим образом:
+
+\begin{equation}
+    0 = \sum_i \int_{[1]} d1 \delta \psi_i^* (1) \left[\hat{h} \psi_i (1) + \hat{{J}} \psi_i (1) - {K} \psi_i (1) - \sum_j \lambda_{ij} \psi_j (1)\right]
+    \label{eq:hf_raw2}
+\end{equation}
+
+Введём определение 
+\begin{equation}
+    \hat{f} \equiv \hat{h} + \hat{{J}} - \hat{{K}},
+\end{equation}
+исходя из чего уравнение \eqref{eq:hf_raw2} можно упростить ещё дальше:
+
+\begin{equation}
+0 = \sum_i \int_{[2]} d1 \delta \psi_i^* (1) \left[\hat{f} \psi_i (1) - \sum_{j} \lambda_{ij} \psi_j (1)\right],
+\end{equation}
+данное условие должно выполняться для любых вариаций \(\delta \psi_i\), откуда имеем 
+
+\begin{equation}
+    \boxed{\forall i \; \hat{f} \psi_i(1) = \sum_{j} \lambda_{ij} \psi_j (1)},
+\end{equation}
+что называется \textit{уравнениями Хартри-Фока}
 
 \end{document}
